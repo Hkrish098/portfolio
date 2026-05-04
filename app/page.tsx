@@ -80,7 +80,7 @@ export default function Portfolio() {
             visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
           }}>
             <Badge className="bg-primary/10 text-primary border-primary/40 px-4 py-1.5 rounded-full mb-4 font-mono">
-              Gen AI Intern @ Tatvaops • AI/ML Specialist
+              Gen AI Intern @ Tatvaops • Full Stack AI/ML Developer
             </Badge>
           </motion.div>
 
@@ -170,7 +170,7 @@ export default function Portfolio() {
                 I'm <span className="text-foreground font-semibold">Krishna H.</span>, a Generative AI & Machine Learning Intern bridging the gap between theoretical models and real-world impact. Currently driving AI initiatives at Tatvaops, I leverage a strong <span className="text-primary">Computer Science</span> foundation to architect intelligent systems that scale.
               </p>
               <p>
-                My expertise lies in designing robust RAG pipelines and autonomous agentic workflows that solve complex, domain-specific challenges—transforming raw data into actionable, automated intelligence.
+                My expertise lies in designing robust RAG pipelines and autonomous agentic workflows that solve complex, domain-specific challenges and transforming raw data into actionable, automated intelligence.
               </p>
               <div className="flex items-center gap-6 pt-4 font-mono">
                 <div>
