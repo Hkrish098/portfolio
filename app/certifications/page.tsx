@@ -10,7 +10,7 @@ const certificates = [
   {
     title: "Quantitative Research Job Simulation",
     issuer: "J.P. Morgan & Chase",
-    image: "/certificates/JPmorganChase&Co.png", // Path to your image
+    image: "/certificates/JPMorganChase&Co.png",
     category: "Job Simulation",
     description: "Completed advanced simulations in quantitative analysis and mathematical modeling."
   },
@@ -73,7 +73,7 @@ export default function CertificationsPage() {
         {/* Responsive Image Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
           {certificates.map((cert, index) => (
-            <div key={index} className="group relative overflow-hidden rounded-2xl border border-border bg-muted/20 hover:border-primary/50 transition-all duration-500">
+            <a key={index} href={cert.image} target="_blank" rel="noreferrer" className="group relative block overflow-hidden rounded-2xl border border-border bg-muted/20 transition-all duration-500 hover:border-primary/50">
               <div className="aspect-[16/10] overflow-hidden bg-black/40">
                 <img 
                   src={cert.image} 
@@ -90,8 +90,8 @@ export default function CertificationsPage() {
                 <p className="text-sm font-mono text-muted-foreground uppercase tracking-widest">{cert.issuer}</p>
                 <p className="text-muted-foreground leading-relaxed">{cert.description}</p>
               </div>
-            </div>
-          ))}
+</a>
+            ))}
         </div>
       </div>
     </div>
