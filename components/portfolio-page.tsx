@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useState, type ReactNode } from "react"
 import { ArrowUpRight, BookOpen, BriefcaseBusiness, FileText, Github, Linkedin, Menu, X } from "lucide-react"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { site } from "@/lib/site"
 
 const projects = [
@@ -22,10 +22,10 @@ export function PortfolioPage() {
       <button aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)} className="fixed left-5 top-5 z-50 flex size-12 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-primary">
         {menuOpen ? <X /> : <Menu />}
       </button>
-      <div className="fixed right-6 top-7 z-40 hidden font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:block">Krishna H / AIML Engineer</div>
+      <AnimatePresence>
       {menuOpen && <>
-        <button aria-label="Close menu overlay" onClick={() => setMenuOpen(false)} className="fixed inset-0 z-30 bg-foreground/10 backdrop-blur-sm" />
-        <motion.aside initial={{ x: -320 }} animate={{ x: 0 }} exit={{ x: -320 }} className="fixed inset-y-0 left-0 z-40 flex w-[min(88vw,22rem)] flex-col border-r border-border bg-card px-8 pb-10 pt-28 shadow-xl">
+        <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} aria-label="Close menu overlay" onClick={() => setMenuOpen(false)} className="fixed inset-0 z-30 cursor-default bg-foreground/10 backdrop-blur-md" />
+        <motion.aside initial={{ opacity: 0, scale: .92, x: -40, y: -24 }} animate={{ opacity: 1, scale: 1, x: 0, y: 0 }} exit={{ opacity: 0, scale: .94, x: -24, y: -16 }} transition={{ type: "spring", stiffness: 240, damping: 24 }} role="dialog" aria-modal="true" className="fixed left-4 top-4 z-40 flex max-h-[calc(100dvh-2rem)] w-[min(88vw,23rem)] flex-col overflow-hidden rounded-[2.5rem] border border-white/60 bg-background/75 px-8 pb-10 pt-28 shadow-2xl shadow-foreground/15 backdrop-blur-2xl sm:left-6 sm:top-6">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Navigate</p>
           <nav className="mt-8 flex flex-col gap-4 text-2xl font-medium tracking-tight">
             {["About", "Experience", "Projects", "Skills", "Research", "Contact"].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="transition hover:text-primary">{item}</a>)}
@@ -37,13 +37,14 @@ export function PortfolioPage() {
           </div>
         </motion.aside>
       </>}
+      </AnimatePresence>
 
       <main>
         <section id="about" className="mx-auto flex min-h-screen max-w-6xl items-center px-6 pb-20 pt-32 sm:px-10 lg:px-16">
           <div className="grid w-full items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
               <p className="font-mono text-xs uppercase tracking-[0.25em] text-primary">Software Engineer · Applied ML</p>
-              <h1 className="mt-7 max-w-3xl text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.06em] sm:text-7xl lg:text-[6.5rem]">Building useful intelligence for the real world.</h1>
+              <h1 className="mt-7 max-w-3xl text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.06em] sm:text-7xl lg:text-[6.5rem]"><span className="hero-word">Building</span> <span className="hero-word">useful</span> <span className="hero-word">intelligence</span> <span className="hero-word">for the</span> <span className="hero-word">real world.</span></h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">I&apos;m Krishna H, an AIML engineer focused on making machine learning systems reliable, understandable, and ready to ship.</p>
               <div className="mt-10 flex flex-wrap items-center gap-5"><a href="#projects" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition hover:gap-3">Explore my work <ArrowUpRight size={16} /></a><a href={site.resume} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium underline decoration-border underline-offset-8 hover:text-primary">View resume <FileText size={16} /></a></div>
               <div className="mt-16 flex gap-8 border-t border-border pt-5 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground"><span>Bengaluru, India</span><span>Open to opportunities</span></div>
