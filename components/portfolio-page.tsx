@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useState, type ReactNode } from "react"
-import { ArrowUpRight, BookOpen, BriefcaseBusiness, FileText, Github, Linkedin, Menu, X } from "lucide-react"
+import { ArrowUpRight, BookOpen, BriefcaseBusiness, Check, Copy, FileText, Github, Linkedin, Menu, X } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { site } from "@/lib/site"
 
@@ -17,6 +17,12 @@ const skills = ["Python", "PyTorch", "Scikit-learn", "LangChain", "RAG", "LLMs",
 
 export function PortfolioPage() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(site.email)
+    setCopied(true)
+    window.setTimeout(() => setCopied(false), 1800)
+  }
   return (
     <div id="top" className="min-h-screen bg-background text-foreground">
       <button aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)} className="fixed left-5 top-5 z-50 flex size-12 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-primary">
@@ -40,7 +46,7 @@ export function PortfolioPage() {
       </AnimatePresence>
 
       <main>
-        <section id="about" className="mx-auto flex min-h-screen max-w-6xl items-center px-6 pb-20 pt-32 sm:px-10 lg:px-16">
+        <section id="about" className="mx-auto flex min-h-screen max-w-6xl items-center px-6 pb-20 pt-24 sm:px-10 lg:px-16">
           <div className="grid w-full items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
               <p className="font-mono text-xs uppercase tracking-[0.25em] text-primary">Software Engineer · Applied ML</p>
@@ -50,20 +56,20 @@ export function PortfolioPage() {
               <div className="mt-16 flex gap-8 border-t border-border pt-5 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground"><span>Bengaluru, India</span><span>Open to opportunities</span></div>
             </motion.div>
             <motion.div initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .8, delay: .15 }} className="relative mx-auto w-full max-w-md">
-              <div className="absolute -inset-5 rounded-[2rem] border border-primary/20" /><div className="relative overflow-hidden rounded-[1.5rem] bg-secondary"><Image src="/krishna_professional.jpg" alt="Krishna H, software engineer specializing in machine learning" width={900} height={1100} priority className="aspect-[4/5] w-full object-cover object-top grayscale-[20%] transition duration-700 hover:scale-[1.03]" /></div><p className="mt-5 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Curiosity in, systems out.</p>
+              <div className="absolute -inset-5 rounded-[2rem] border border-primary/20" /><div className="relative overflow-hidden rounded-[1.5rem] bg-secondary"><Image src="/krishna_professional.jpg" alt="Krishna H, software engineer specializing in machine learning" width={900} height={1100} priority className="aspect-[4/5] w-full object-cover object-top grayscale-[20%] transition duration-700 hover:scale-[1.03]" /></div>
             </motion.div>
           </div>
         </section>
 
-        <section id="experience" className="border-t border-border bg-secondary/40 px-6 py-28 sm:px-10 lg:px-16"><div className="mx-auto max-w-6xl"><SectionLabel text="01 / Experience" /><div className="mt-12 grid gap-10 lg:grid-cols-[.35fr_1fr]"><div><p className="font-mono text-sm text-primary">Feb 2026 — Present</p><h2 className="mt-3 text-3xl font-semibold tracking-tight">AI/ML (GenAI) Intern</h2><p className="mt-2 text-muted-foreground">Tatvaops by EROEI Tech</p><p className="mt-1 text-sm text-muted-foreground">Bengaluru, KA</p></div><div className="max-w-2xl border-l border-border pl-6 sm:pl-10"><p className="text-xl leading-relaxed text-foreground/80">I work across production-grade AI systems, from fleet optimization and conversational calculations to vision models, MCP integrations, and automated delivery pipelines.</p></div></div></div></section>
+        <section id="experience" className="border-t border-border bg-secondary/40 px-6 py-28 sm:px-10 lg:px-16"><div className="mx-auto max-w-6xl"><SectionLabel text="01 / Experience" /><div className="mt-12 grid gap-10 lg:grid-cols-[.35fr_1fr]"><div><p className="font-mono text-sm text-primary">Jul 2026 — Present</p><h2 className="mt-3 text-3xl font-semibold tracking-tight">AI Engineer</h2><p className="mt-2 text-muted-foreground">Tatvaops by EROEI Tech Pvt Ltd</p><p className="mt-2 text-sm text-muted-foreground">Previously AI/ML (GenAI) Intern · Feb — Jul 2026</p><p className="mt-1 text-sm text-muted-foreground">Bengaluru, KA</p></div><div className="max-w-2xl border-l border-border pl-6 sm:pl-10"><p className="text-xl leading-relaxed text-foreground/80">As an AI Engineer, I build and ship production GenAI systems across fleet optimization, conversational calculation, vision, and data analysis. My work includes TatvaConnect, SAM object detection, MCP API integrations, VLM-driven quotation analysis, Supabase pipelines, cron jobs, and GitHub Actions deployments across Vercel and Render.</p></div></div></div></section>
 
         <section id="projects" className="mx-auto max-w-6xl px-6 py-28 sm:px-10 lg:px-16"><SectionLabel text="02 / Selected projects" /><div className="mt-12 grid gap-x-8 gap-y-12 md:grid-cols-2">{projects.map((project, index) => <motion.a whileHover={{ y: -6 }} transition={{ duration: .25 }} href={project.href} target="_blank" rel="noreferrer" key={project.title} className="group border-t border-border pt-5"><div className="flex items-start justify-between gap-4"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-primary">0{index + 1} · {project.type}</p><h3 className="mt-4 text-2xl font-semibold tracking-tight">{project.title}</h3></div><ArrowUpRight className="text-muted-foreground transition group-hover:text-primary" /></div><p className="mt-5 max-w-lg leading-relaxed text-muted-foreground">{project.text}</p><p className="mt-6 font-mono text-xs uppercase tracking-[0.16em] text-foreground/60">{project.metric}</p></motion.a>)}</div></section>
 
-        <section id="skills" className="border-y border-border bg-secondary/40 px-6 py-24 sm:px-10 lg:px-16"><div className="mx-auto max-w-6xl"><SectionLabel text="03 / Skills & GitHub" /><div className="mt-10 flex flex-wrap gap-3">{skills.map((skill) => <span key={skill} className="rounded-full border border-border bg-background px-4 py-2 text-sm transition hover:border-primary hover:text-primary">{skill}</span>)}</div><a href={site.github} target="_blank" rel="noreferrer" className="mt-12 flex max-w-xl items-center justify-between border-t border-border pt-5 text-lg font-medium transition hover:text-primary"><span><Github className="mr-3 inline" size={19} />See my open-source work</span><ArrowUpRight size={19} /></a></div></section>
+        <section id="skills" className="border-y border-border bg-secondary/40 px-6 py-24 sm:px-10 lg:px-16"><div className="mx-auto max-w-6xl"><SectionLabel text="03 / Skills & GitHub" /><div className="mt-10 flex flex-wrap gap-3">{skills.map((skill) => <span key={skill} className="skill-pill rounded-full border border-border/80 bg-background/60 px-4 py-2 text-sm backdrop-blur-sm transition hover:border-primary/50 hover:text-primary">{skill}</span>)}</div><a href={site.github} target="_blank" rel="noreferrer" className="mt-12 flex max-w-xl items-center justify-between border-t border-border pt-5 text-lg font-medium transition hover:text-primary"><span><Github className="mr-3 inline" size={19} />See my open-source work</span><ArrowUpRight size={19} /></a></div></section>
 
         <section id="research" className="mx-auto max-w-6xl px-6 py-28 sm:px-10 lg:px-16"><SectionLabel text="04 / More to explore" /><div className="mt-12 grid gap-8 md:grid-cols-3"><Resource icon={<BriefcaseBusiness />} title="Certifications" text="Credentials across cloud, AI, and modern engineering practice." href="/certifications" /><Resource icon={<FileText />} title="Technical papers" text="Research and experiments exploring responsible, secure machine learning." href="/research_paper.pdf" /><Resource icon={<BookOpen />} title="Notes & blog" text="Writing about models, systems, and the lessons between them." href="/notes" /></div></section>
 
-        <section id="contact" className="bg-primary px-6 py-24 text-primary-foreground sm:px-10 lg:px-16"><div className="mx-auto max-w-6xl"><p className="font-mono text-xs uppercase tracking-[0.2em] opacity-70">05 / Contact</p><h2 className="mt-7 max-w-3xl text-balance text-5xl font-semibold leading-none tracking-[-0.05em] sm:text-7xl">Let&apos;s build something thoughtful.</h2><a href={`mailto:${site.email}`} className="mt-10 inline-flex items-center gap-2 border-b border-primary-foreground/40 pb-2 text-lg hover:border-primary-foreground">{site.email} <ArrowUpRight size={18} /></a></div></section>
+        <section id="contact" className="bg-primary px-6 py-24 text-primary-foreground sm:px-10 lg:px-16"><div className="mx-auto max-w-6xl"><p className="font-mono text-xs uppercase tracking-[0.2em] opacity-70">05 / Contact</p><h2 className="mt-7 max-w-3xl text-balance text-5xl font-semibold leading-none tracking-[-0.05em] sm:text-7xl">Let&apos;s build something thoughtful.</h2><div className="mt-10 flex flex-wrap items-center gap-4"><a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 border-b border-primary-foreground/40 pb-2 text-lg hover:border-primary-foreground">{site.email} <ArrowUpRight size={18} /></a><button type="button" onClick={copyEmail} className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/30 px-4 py-2 text-sm transition hover:bg-primary-foreground/10">{copied ? <Check size={16} /> : <Copy size={16} />} {copied ? "Copied" : "Copy email"}</button></div></div></section>
       </main>
       <footer className="flex flex-col gap-5 bg-foreground px-6 py-8 text-background sm:flex-row sm:items-center sm:justify-between sm:px-10 lg:px-16"><span className="font-semibold">Krishna H</span><span className="text-sm opacity-60">Designed and built with care · {new Date().getFullYear()}</span><div className="flex gap-5"><a href={site.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={18} /></a><a href={site.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={18} /></a></div></footer>
     </div>
