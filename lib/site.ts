@@ -7,6 +7,7 @@ export const site = {
   githubUser: "Hkrish098",
   linkedin: "https://linkedin.com/in/krishna-h-AIML",
   resume: "/krishna_resume.pdf",
+  youtube: "https://www.youtube.com/@KrishnaH-AIML",
   portrait: "/portfolio_image-removebg-preview.jpg",
   location: "Bengaluru, KA",
 } as const
