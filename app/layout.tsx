@@ -30,7 +30,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){function ext(v){var s=String(v&&(v.stack||v.message)||v||"");return/chrome-extension:\\/\\//.test(s)||/moz-extension:\\/\\//.test(s)||/Failed to connect to MetaMask/i.test(s)}window.addEventListener("error",function(e){if(ext(e.error)||ext(e.filename)||ext(e.message))e.preventDefault()},true);window.addEventListener("unhandledrejection",function(e){if(ext(e.reason))e.preventDefault()},true)})();`,
+            __html: `(function(){function ext(v){var s=String(v&&(v.stack||v.message)||v||"");return/chrome-extension:\\/\\//.test(s)||/moz-extension:\\/\\//.test(s)||/MetaMask/i.test(s)}function stop(e){if(ext(e.error)||ext(e.filename)||ext(e.message)||ext(e.reason)){e.preventDefault();e.stopImmediatePropagation();return true}}window.addEventListener("error",stop,true);window.addEventListener("unhandledrejection",stop,true)})();`,
           }}
         />
       </head>

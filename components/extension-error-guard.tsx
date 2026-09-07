@@ -6,42 +6,43 @@ function isBrowserExtensionSource(value: unknown) {
   const text = String(
     value instanceof Error
       ? `${value.message}${value.stack ?? ""}`
-      : typeof value === "string"
-        ? value
-        : ""
+      : typeof value === "object" && value !== null
+        ? JSON.stringify(value)
+        : value ?? ""
   )
 
   return (
     text.includes("chrome-extension://") ||
     text.includes("moz-extension://") ||
-    /Failed to connect to MetaMask/i.test(text)
+    /Failed to connect to MetaMask/i.test(text) ||
+    /MetaMask/i.test(text)
   )
+}
+
+function suppressExtensionError(event: Event) {
+  const errorEvent = event as ErrorEvent
+  const rejectionEvent = event as PromiseRejectionEvent
+
+  const shouldSuppress =
+    isBrowserExtensionSource(errorEvent.error) ||
+    isBrowserExtensionSource(errorEvent.filename) ||
+    isBrowserExtensionSource(errorEvent.message) ||
+    isBrowserExtensionSource(rejectionEvent.reason)
+
+  if (!shouldSuppress) return
+
+  event.preventDefault()
+  event.stopImmediatePropagation()
 }
 
 export function ExtensionErrorGuard() {
   useEffect(() => {
-    const onError = (event: ErrorEvent) => {
-      if (
-        isBrowserExtensionSource(event.error) ||
-        isBrowserExtensionSource(event.filename) ||
-        isBrowserExtensionSource(event.message)
-      ) {
-        event.preventDefault()
-      }
-    }
-
-    const onRejection = (event: PromiseRejectionEvent) => {
-      if (isBrowserExtensionSource(event.reason)) {
-        event.preventDefault()
-      }
-    }
-
-    window.addEventListener("error", onError)
-    window.addEventListener("unhandledrejection", onRejection)
+    window.addEventListener("error", suppressExtensionError, true)
+    window.addEventListener("unhandledrejection", suppressExtensionError, true)
 
     return () => {
-      window.removeEventListener("error", onError)
-      window.removeEventListener("unhandledrejection", onRejection)
+      window.removeEventListener("error", suppressExtensionError, true)
+      window.removeEventListener("unhandledrejection", suppressExtensionError, true)
     }
   }, [])
 

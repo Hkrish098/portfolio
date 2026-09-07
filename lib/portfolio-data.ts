@@ -87,6 +87,88 @@ export const services = [
   },
 ] as const
 
+export const certifications = [
+  {
+    slug: "coursera-rag",
+    title: "RAG Specialist",
+    tag: "Specialization",
+    issuer: "Coursera / DeepLearning.AI",
+    image: "/certificates/coursera.png",
+    description: "Building robust retrieval-augmented generation pipelines and vector integrations.",
+    wide: true,
+  },
+  {
+    slug: "jpmorgan-quantitative-research",
+    title: "Quantitative Research",
+    tag: "Job Simulation",
+    issuer: "J.P. Morgan & Chase",
+    image: "/certificates/JPMorganChase&Co.png",
+    description: "Advanced simulations in quantitative analysis and mathematical modeling.",
+    wide: false,
+  },
+  {
+    slug: "zscaler-cloud-security",
+    title: "Cloud Security",
+    tag: "Virtual Internship",
+    issuer: "Zscaler / EduSkills (AICTE)",
+    image: "/certificates/Zscalar.png",
+    description: "Cloud security fundamentals and zero-trust architecture practice.",
+    wide: false,
+  },
+  {
+    slug: "deloitte-stem",
+    title: "STEM Job Simulation",
+    tag: "Internship",
+    issuer: "Deloitte",
+    image: "/certificates/Deloitte.png",
+    description: "Applied STEM problem-solving in a professional services context.",
+    wide: false,
+  },
+  {
+    slug: "uipath-rpa",
+    title: "RPA Developer",
+    tag: "Automation",
+    issuer: "UiPath",
+    image: "/certificates/UI_path.png",
+    description: "Designing and implementing automated enterprise workflows.",
+    wide: false,
+  },
+  {
+    slug: "oracle-genai",
+    title: "OCI 2025 Certified Generative AI Professional",
+    tag: "GenAI Professional",
+    issuer: "Oracle",
+    image: "/certificates/Oracle.png",
+    description: "Deploying and managing GenAI solutions on Oracle Cloud Infrastructure.",
+    wide: true,
+  },
+] as const
+
+export const notes = [
+  {
+    slug: "ai-agent-memory",
+    title: "Beyond the Context Window: Why AI Agents Need Memory",
+    type: "Technical blog · Hashnode",
+    description: "A practical exploration of short-term, long-term, semantic, episodic, and procedural memory for production-grade AI agents.",
+    href: "https://hashnode.com/edit/cmpctqeso00812dn8g10pfh3x",
+    image: "/projects/project-sentio.jpg",
+    wide: true,
+  },
+  {
+    slug: "agentic-gauntlet",
+    title: "The Agentic Gauntlet",
+    type: "Technical blog · Hashnode",
+    description: "From retrieval systems with amnesia to active, problem-solving concierge agents in LLM applications.",
+    href: "https://nexora-sentiobot.hashnode.dev/the-agentic-gauntlet-from-amnesia-to-autonomy-in-llm-chatbots",
+    image: "/projects/project-oci.jpg",
+    wide: false,
+  },
+] as const
+
+export function getCertification(slug: string) {
+  return certifications.find((cert) => cert.slug === slug)
+}
+
 export const resources = [
   {
     icon: BriefcaseBusiness,
@@ -98,7 +180,7 @@ export const resources = [
     icon: FileText,
     title: "Technical papers",
     text: "Research exploring responsible, secure machine learning.",
-    href: "/research_paper.pdf",
+    href: "/research",
   },
   {
     icon: BookOpen,

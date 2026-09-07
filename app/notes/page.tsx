@@ -1,8 +1,35 @@
-import Link from "next/link"
-import { ArrowLeft, ArrowUpRight, BookOpen } from "lucide-react"
-
-const notes = [{ title: "Beyond the Context Window: Why AI Agents Need Memory", type: "Technical blog · Hashnode", description: "A practical exploration of short-term, long-term, semantic, episodic, and procedural memory for production-grade AI agents.", href: "https://hashnode.com/edit/cmpctqeso00812dn8g10pfh3x" }, { title: "The Agentic Gauntlet", type: "Technical blog · Hashnode", description: "From retrieval systems with amnesia to active, problem-solving concierge agents in LLM applications.", href: "https://nexora-sentiobot.hashnode.dev/the-agentic-gauntlet-from-amnesia-to-autonomy-in-llm-chatbots" }]
+import { PageShell } from "@/components/page-shell"
+import { CollectionPageIntro, GlossyCollectionGrid } from "@/components/glossy-collection"
+import { notes } from "@/lib/portfolio-data"
 
 export default function NotesPage() {
-  return <main className="min-h-screen bg-background px-6 py-10 text-foreground sm:px-10 lg:px-16"><div className="mx-auto max-w-5xl"><Link href="/#research" className="inline-flex items-center gap-2 text-sm text-muted-foreground transition hover:text-primary"><ArrowLeft size={16} /> Back to portfolio</Link><div className="mt-20 max-w-3xl"><p className="font-mono text-xs uppercase tracking-[0.22em] text-primary">Field notes</p><h1 className="mt-5 text-balance text-5xl font-semibold tracking-[-0.05em] sm:text-7xl">Notes & blog</h1><p className="mt-6 text-lg leading-relaxed text-muted-foreground">Ideas, experiments, and practical lessons from building intelligent software.</p></div><div className="mt-16 grid gap-10 sm:grid-cols-2">{notes.map((note) => <a key={note.title} href={note.href} target="_blank" rel="noreferrer" className="group border-t border-border pt-5"><div className="flex items-center justify-between text-primary"><BookOpen size={22} /><ArrowUpRight className="text-muted-foreground transition group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-primary" size={18} /></div><p className="mt-8 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">{note.type}</p><h2 className="mt-4 text-3xl font-semibold tracking-tight">{note.title}</h2><p className="mt-4 leading-relaxed text-muted-foreground">{note.description}</p><span className="mt-8 inline-block text-sm font-medium text-primary">Read note</span></a>)}</div></div></main>
+  const items = notes.map((note) => ({
+    title: note.title,
+    tag: note.type,
+    description: note.description,
+    image: note.image,
+    href: note.href,
+    wide: note.wide,
+    external: true,
+    cta: "Read note",
+  }))
+
+  return (
+    <PageShell>
+      <CollectionPageIntro
+        backHref="/about"
+        backLabel="Back to about"
+        eyebrow="Field notes"
+        title="Notes & blog"
+        description="Ideas, experiments, and practical lessons from building intelligent software — presented in the same visual language as the rest of the portfolio."
+      />
+      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 lg:px-10">
+        <GlossyCollectionGrid
+          items={items}
+          hintDesktop="Hover a note to read the summary, then open the full article."
+          hintMobile="Tap a note to read the article."
+        />
+      </section>
+    </PageShell>
+  )
 }
